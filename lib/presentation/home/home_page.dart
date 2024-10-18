@@ -9,7 +9,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     // Initialize the controller using Get.put
     final HomeController controller =
-        Get.find(); // Ensure controller is not null
+        Get.find();
 
     return Scaffold(
       appBar: AppBar(
