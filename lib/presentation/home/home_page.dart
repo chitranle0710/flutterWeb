@@ -15,7 +15,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  // Variable to hold the currently displayed page
   Widget _currentPage = const HomePage();
 
   @override
@@ -24,13 +23,11 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: Row(
           children: [
-            // Icon at the start
             SizedBox(
               width: 150,
               child: AppIcon.iconShopping.widget(), // Your shopping icon widget
             ),
             const Spacer(),
-            // Menu in the center
             Row(
               children: [
                 _buildMenuItem('Home', () {
@@ -62,9 +59,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 }),
               ],
             ),
-            // Spacer to ensure the menu is centered
             const Spacer(),
-            // Logic icon at the end (e.g., Profile, Cart, or any action icon)
             IconButton(
               icon: const Icon(Icons.account_circle, size: 30),
               onPressed: () {
@@ -80,7 +75,6 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
-      // Replace body with the current page
       body: _currentPage,
     );
   }
@@ -97,7 +91,6 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-// Dummy Home Page Widget (Replace with your actual HomePage)
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
