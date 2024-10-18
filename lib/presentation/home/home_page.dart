@@ -1,49 +1,93 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:web_uit_base/config/app_icon.dart';
 import 'package:web_uit_base/config/app_text.dart';
 import 'package:web_uit_base/service/app_color.dart';
-import 'home_controller.dart';
 
-class HomeScreen extends StatelessWidget {
+import '../about/about_page.dart';
+import '../contact/contact_page.dart';
+import '../store/store_page.dart';
+
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  // Variable to hold the currently displayed page
+  Widget _currentPage = const HomePage();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Text('My Web App'),
+            // Icon at the start
+            SizedBox(
+              width: 150,
+              child: AppIcon.iconShopping.widget(), // Your shopping icon widget
+            ),
+            const Spacer(),
+            // Menu in the center
             Row(
               children: [
-                _buildMenuItem('Home', context),
+                _buildMenuItem('Home', () {
+                  setState(() {
+                    _currentPage =
+                        const HomePage(); // Replace with your HomePage widget
+                  });
+                }),
                 const SizedBox(width: 20),
-                _buildMenuItem('About', context),
+                _buildMenuItem('About', () {
+                  setState(() {
+                    _currentPage =
+                        const AboutPage(); // Assuming AboutPage is already defined
+                  });
+                }),
                 const SizedBox(width: 20),
-                _buildMenuItem('Contact', context),
+                _buildMenuItem('Stores', () {
+                  setState(() {
+                    _currentPage =
+                        const StoresPage(); // Assuming StoresPage is already defined
+                  });
+                }),
+                const SizedBox(width: 20),
+                _buildMenuItem('Contact', () {
+                  setState(() {
+                    _currentPage =
+                        const ContactPage(); // Assuming ContactPage is already defined
+                  });
+                }),
               ],
             ),
+            // Spacer to ensure the menu is centered
+            const Spacer(),
+            // Logic icon at the end (e.g., Profile, Cart, or any action icon)
+            IconButton(
+              icon: const Icon(Icons.account_circle, size: 30),
+              onPressed: () {
+                // Define action for profile icon
+              },
+            ),
+            const SizedBox(width: 10),
+            AppText.primary(
+              'Login',
+              color: AppColors.black,
+              fontWeight: FontWeightType.regular,
+            )
           ],
         ),
       ),
-      body: LayoutBuilder(
-        builder: (context, constraints) {
-          if (constraints.maxWidth > 800) {
-            return _buildDesktopLayout();
-          } else {
-            return _buildMobileLayout();
-          }
-        },
-      ),
+      // Replace body with the current page
+      body: _currentPage,
     );
   }
 
-  Widget _buildMenuItem(String title, BuildContext context) {
+  Widget _buildMenuItem(String title, VoidCallback onPressed) {
     return TextButton(
-      onPressed: () {
-        // Add navigation or actions for each menu item
-      },
+      onPressed: onPressed,
       child: AppText.primary(
         title,
         color: AppColors.black,
@@ -51,96 +95,16 @@ class HomeScreen extends StatelessWidget {
       ),
     );
   }
+}
 
-  Widget _buildDesktopLayout() {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const SizedBox(width: 50),
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'Welcome to My Web App!',
-                    style: TextStyle(
-                      fontSize: 32.0,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    textAlign: TextAlign.left,
-                  ),
-                  const SizedBox(height: 20),
-                  const Text(
-                    'This is a responsive web layout built with Flutter.',
-                    style: TextStyle(fontSize: 18.0),
-                    textAlign: TextAlign.left,
-                  ),
-                  const SizedBox(height: 40),
-                  ElevatedButton(
-                    onPressed: () {
-                      // Add action here
-                    },
-                    style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 30, vertical: 15),
-                      textStyle: const TextStyle(fontSize: 18),
-                    ),
-                    child: const Text('Get Started'),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+// Dummy Home Page Widget (Replace with your actual HomePage)
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
 
-  Widget _buildMobileLayout() {
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.network(
-              'https://flutter.dev/assets/homepage/carousel/slide_1-layer_0-2b6f07e6bc693a7311e5352cf27810e7.png',
-              fit: BoxFit.cover,
-            ),
-            const SizedBox(height: 20),
-            const Text(
-              'Welcome to My Web App!',
-              style: TextStyle(
-                fontSize: 28.0,
-                fontWeight: FontWeight.bold,
-              ),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 20),
-            const Text(
-              'This is a responsive web layout built with Flutter.',
-              style: TextStyle(fontSize: 16.0),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 30),
-            ElevatedButton(
-              onPressed: () {
-                // Add action here
-              },
-              style: ElevatedButton.styleFrom(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
-                textStyle: const TextStyle(fontSize: 18),
-              ),
-              child: const Text('Get Started'),
-            ),
-          ],
-        ),
-      ),
+  @override
+  Widget build(BuildContext context) {
+    return const Center(
+      child: Text('This is the Home Page', style: TextStyle(fontSize: 24)),
     );
   }
 }
